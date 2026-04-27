@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Solar System — Orbital Motion</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+
+  /* ─── PAGE ACCENT ─── */
+  :root { --accent: #6fa3f7; --accent-glow: rgba(65,105,225,0.25); }
+
+  .page-hero {
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(65,105,225,0.1) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 30% at 20% 80%, rgba(255,179,71,0.06) 0%, transparent 50%);
+  }
+
+  /* ─── MINI SOLAR SYSTEM ANIMATION ─── */
+  .solar-demo {
+    position: relative;
+    width: 100%; max-width: 460px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .mini-sun {
+    width: 66px; height: 66px;
+    background: radial-gradient(circle at 40% 35%, #fff9c4, #ffb347, #ff8c00);
+    border-radius: 50%; position: absolute;
+    box-shadow: 0 0 30px 10px rgba(255,180,50,0.7), 0 0 80px 30px rgba(255,140,0,0.4);
+    animation: sun-pulse 4s ease-in-out infinite; z-index: 5;
+  }
+  .mini-orbit {
+    position: absolute; border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 50%; animation: orbit-spin linear infinite;
+  }
+  .mini-planet {
+    position: absolute; border-radius: 50%;
+    top: 0; left: 50%; transform: translate(-50%, -50%);
+  }
+  .mo-1 { width: 105px; height: 105px; animation-duration: 6s; }
+  .mo-1 .mini-planet { width: 9px; height: 9px; background: radial-gradient(circle at 35% 30%, #d8d8d8, #888); box-shadow: 0 0 6px rgba(200,200,200,0.5); margin-top: -4.5px; }
+  .mo-2 { width: 155px; height: 155px; animation-duration: 14s; }
+  .mo-2 .mini-planet { width: 13px; height: 13px; background: radial-gradient(circle at 35% 30%, #f5e6c8, #c4963a); box-shadow: 0 0 8px rgba(228,174,60,0.6); margin-top: -6.5px; }
+  .mo-3 { width: 208px; height: 208px; animation-duration: 24s; }
+  .mo-3 .mini-planet { width: 15px; height: 15px; background: radial-gradient(circle at 30% 35%, #7ec8e3, #1a5276, #27ae60); box-shadow: 0 0 10px rgba(79,148,205,0.7); margin-top: -7.5px; }
+  .mo-4 { width: 262px; height: 262px; animation-duration: 45s; }
+  .mo-4 .mini-planet { width: 11px; height: 11px; background: radial-gradient(circle at 35% 30%, #e8786d, #8b1a1a); box-shadow: 0 0 8px rgba(205,92,92,0.6); margin-top: -5.5px; }
+  .mo-5 { width: 330px; height: 330px; animation-duration: 110s; }
+  .mo-5 .mini-planet { width: 26px; height: 26px; background: radial-gradient(circle at 30% 40%, #e4c97a, #a0522d, #d4a054); box-shadow: 0 0 12px rgba(200,139,58,0.6); margin-top: -13px; }
+  .mo-6 { width: 410px; height: 410px; animation-duration: 280s; }
+  .mo-6 .mini-planet { width: 20px; height: 20px; background: radial-gradient(circle at 35% 35%, #f0dfa0, #c8a84b); box-shadow: 0 0 10px rgba(228,209,145,0.5); margin-top: -10px; }
+  .mo-6 .mini-planet::after {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    width: 40px; height: 8px;
+    border: 2px solid rgba(228,209,145,0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotateX(70deg);
+  }
+
+  /* ─── PLANET TAGS ─── */
+  .planet-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    justify-content: center; margin-top: 1.8rem;
+  }
+  .planet-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.57rem; letter-spacing: 0.14em;
+    padding: 0.28rem 0.75rem;
+    border-radius: 20px; border: 1px solid;
+    white-space: nowrap;
+  }
+
+  /* ─── INTRO GRID ─── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+
+  /* ─── BLENDER STEPS ─── */
+  .blender-steps { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1.5rem; }
+  .b-step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: linear-gradient(135deg, rgba(65,105,225,0.07), rgba(255,255,255,0.02));
+    border: 1px solid rgba(65,105,225,0.15);
+    border-radius: 6px; padding: 1rem 1.2rem;
+    transition: all 0.3s;
+  }
+  .b-step:hover { border-color: rgba(65,105,225,0.4); background: rgba(65,105,225,0.1); transform: translateX(5px); }
+  .b-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .b-label { font-family: 'Orbitron', monospace; font-size: 0.68rem; font-weight: 700; color: #6fa3f7; letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+  .b-detail { font-size: 0.83rem; color: rgba(232,244,253,0.5); line-height: 1.5; }
+
+  /* ─── CODE BLOCK ─── */
+  .code-block {
+    background: rgba(0,0,0,0.65);
+    border: 1px solid rgba(65,105,225,0.22);
+    border-radius: 8px; overflow: hidden;
+    margin-top: 2rem;
+  }
+  .code-header {
+    background: rgba(65,105,225,0.1);
+    border-bottom: 1px solid rgba(65,105,225,0.18);
+    padding: 0.55rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dot.r { background: #ff5f57; }
+  .code-dot.y { background: #ffbd2e; }
+  .code-dot.g { background: #28c840; }
+  .code-filename {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.12em;
+    color: rgba(232,244,253,0.35); margin-left: auto;
+  }
+  .code-body {
+    padding: 1.2rem 1.4rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; line-height: 1.85;
+    color: rgba(232,244,253,0.75);
+    overflow-x: auto; white-space: pre;
+  }
+  .c-kw  { color: #c792ea; }
+  .c-fn  { color: #82aaff; }
+  .c-str { color: #c3e88d; }
+  .c-cm  { color: rgba(232,244,253,0.28); font-style: italic; }
+  .c-num { color: #f78c6c; }
+
+  /* ─── MEDIA SECTION ─── */
+  .media-section-header {
+    display: flex; align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .media-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.2em;
+    color: rgba(232,244,253,0.3); text-transform: uppercase;
+  }
+
+  /* ─── BLENDER BADGE ─── */
+  .blender-badge {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: rgba(65,105,225,0.1);
+    border: 1px solid rgba(65,105,225,0.25);
+    border-radius: 8px; padding: 0.8rem 1.4rem;
+    margin-top: 2rem;
+  }
+  .blender-badge-text { }
+  .blender-badge-name { font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; color: #6fa3f7; letter-spacing: 0.1em; }
+  .blender-badge-sub  { font-family: 'Space Mono', monospace; font-size: 0.58rem; color: rgba(232,244,253,0.3); letter-spacing: 0.1em; }
+
+  @media (max-width: 900px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">ORBITAL<span>MOTION</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rotoscoping.html">Rotoscoping</a></li>
+    <li><a href="solar-system.html" class="active">Solar System</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <p class="page-eyebrow">✦ Page 02 — 3D Animation with Blender ✦</p>
+  <h1 class="page-title">Solar System</h1>
+  <p class="page-sub">Blender · Python Script · 3D Animation · Cycles Render</p>
+</div>
+
+<!-- ═══ INTRO: SOLAR DEMO + INFO ═══ -->
+<div class="section">
+  <div class="intro-grid">
+
+    <!-- LEFT: Animated Solar System -->
+    <div>
+      <div class="solar-demo">
+        <div class="mini-sun"></div>
+        <div class="mini-orbit mo-1"><div class="mini-planet"></div></div>
+        <div class="mini-orbit mo-2"><div class="mini-planet"></div></div>
+        <div class="mini-orbit mo-3"><div class="mini-planet"></div></div>
+        <div class="mini-orbit mo-4"><div class="mini-planet"></div></div>
+        <div class="mini-orbit mo-5"><div class="mini-planet"></div></div>
+        <div class="mini-orbit mo-6"><div class="mini-planet"></div></div>
+      </div>
+      <div class="planet-tags">
+        <span class="planet-tag" style="color:rgba(185,185,185,0.7);border-color:rgba(185,185,185,0.2);">☿ Mercury</span>
+        <span class="planet-tag" style="color:rgba(228,174,60,0.7);border-color:rgba(228,174,60,0.2);">♀ Venus</span>
+        <span class="planet-tag" style="color:rgba(79,148,205,0.8);border-color:rgba(79,148,205,0.25);">⊕ Earth</span>
+        <span class="planet-tag" style="color:rgba(205,92,92,0.8);border-color:rgba(205,92,92,0.25);">♂ Mars</span>
+        <span class="planet-tag" style="color:rgba(200,139,58,0.8);border-color:rgba(200,139,58,0.25);">♃ Jupiter</span>
+        <span class="planet-tag" style="color:rgba(228,209,145,0.8);border-color:rgba(228,209,145,0.25);">♄ Saturn</span>
+      </div>
+      <div style="text-align:center;">
+        <div class="blender-badge">
+          <span style="font-size:1.7rem;">🔷</span>
+          <div class="blender-badge-text">
+            <div class="blender-badge-name">BLENDER 3D</div>
+            <div class="blender-badge-sub">+ Python Scripting (bpy)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Info + Steps -->
+    <div>
+      <p class="section-label">About</p>
+      <h2 class="section-title">Solar System <em>in Blender</em></h2>
+      <p class="section-desc">To enhance the multimedia project, I built a fully animated solar system in Blender using a custom Python script. Each planet orbits the sun with accurate relative speeds, textures, and lighting — rendered with Cycles for photorealistic output.</p>
+      <p class="section-desc">Python scripting in Blender allowed me to automate planet placement, orbital paths, and keyframe generation — drastically reducing manual work and enabling rapid iteration on the animation timeline.</p>
+
+      <div class="blender-steps">
+        <div class="b-step">
+          <span class="b-icon">🌐</span>
+          <div>
+            <div class="b-label">Scene Setup</div>
+            <div class="b-detail">Created the sun, planet meshes, and an HDRI deep-space environment inside Blender's 3D viewport.</div>
+          </div>
+        </div>
+        <div class="b-step">
+          <span class="b-icon">🐍</span>
+          <div>
+            <div class="b-label">Python Scripting</div>
+            <div class="b-detail">Automated orbital keyframes, planet speeds, sizes, and lighting using a custom bpy script.</div>
+          </div>
+        </div>
+        <div class="b-step">
+          <span class="b-icon">💡</span>
+          <div>
+            <div class="b-label">Lighting &amp; Materials</div>
+            <div class="b-detail">Applied emission shaders to the sun, PBR planet textures, and atmospheric rim lighting for depth.</div>
+          </div>
+        </div>
+        <div class="b-step">
+          <span class="b-icon">🎬</span>
+          <div>
+            <div class="b-label">Render &amp; Composite</div>
+            <div class="b-detail">Rendered with Cycles engine, composited glow effects and motion blur, then exported for final use.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ PYTHON SCRIPT ═══ -->
+<div class="section">
+  <p class="section-label">Code</p>
+  <h2 class="section-title">The Python <em>Script</em></h2>
+  <p class="section-desc">This Blender Python script automates the creation and animation of all planets, handling their orbital paths, speeds, and keyframes programmatically.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-dot r"></div>
+      <div class="code-dot y"></div>
+      <div class="code-dot g"></div>
+      <span class="code-filename">solar_system.py — Blender bpy Script</span>
+    </div>
+    <div class="code-body"><span class="c-cm"># ─────────────────────────────────────────────────
+# Solar System Animation — Blender Python Script
+# Multimedia &amp; Authoring Project | 2026
+# ─────────────────────────────────────────────────</span>
+
+<span class="c-kw">import</span> bpy
+<span class="c-kw">import</span> math
+
+<span class="c-cm"># Clear existing scene objects</span>
+bpy.ops.object.<span class="c-fn">select_all</span>(action=<span class="c-str">'SELECT'</span>)
+bpy.ops.object.<span class="c-fn">delete</span>()
+
+<span class="c-cm"># ── Planet data: (name, radius, orbit_distance, orbit_period_frames) ──</span>
+planets = [
+    (<span class="c-str">"Mercury"</span>, <span class="c-num">0.38</span>, <span class="c-num">2.5</span>,  <span class="c-num">88</span>),
+    (<span class="c-str">"Venus"</span>,   <span class="c-num">0.95</span>, <span class="c-num">4.5</span>,  <span class="c-num">225</span>),
+    (<span class="c-str">"Earth"</span>,   <span class="c-num">1.00</span>, <span class="c-num">6.5</span>,  <span class="c-num">365</span>),
+    (<span class="c-str">"Mars"</span>,    <span class="c-num">0.53</span>, <span class="c-num">8.5</span>,  <span class="c-num">687</span>),
+    (<span class="c-str">"Jupiter"</span>, <span class="c-num">3.00</span>, <span class="c-num">13.0</span>, <span class="c-num">1200</span>),
+    (<span class="c-str">"Saturn"</span>,  <span class="c-num">2.50</span>, <span class="c-num">18.0</span>, <span class="c-num">2940</span>),
+]
+
+<span class="c-cm"># ── Create the Sun ──</span>
+bpy.ops.mesh.<span class="c-fn">primitive_uv_sphere_add</span>(radius=<span class="c-num">2.0</span>, location=(<span class="c-num">0</span>, <span class="c-num">0</span>, <span class="c-num">0</span>))
+sun = bpy.context.object
+sun.name = <span class="c-str">"Sun"</span>
+sun_mat = bpy.data.materials.<span class="c-fn">new</span>(name=<span class="c-str">"SunMaterial"</span>)
+sun_mat.use_nodes = <span class="c-kw">True</span>
+sun_mat.node_tree.nodes[<span class="c-str">"Principled BSDF"</span>].inputs[<span class="c-str">"Emission"</span>].default_value = (<span class="c-num">1.0</span>, <span class="c-num">0.6</span>, <span class="c-num">0.1</span>, <span class="c-num">1</span>)
+sun_mat.node_tree.nodes[<span class="c-str">"Principled BSDF"</span>].inputs[<span class="c-str">"Emission Strength"</span>].default_value = <span class="c-num">5.0</span>
+sun.data.materials.<span class="c-fn">append</span>(sun_mat)
+
+<span class="c-cm"># ── Create and animate each planet ──</span>
+<span class="c-kw">for</span> name, size, dist, period <span class="c-kw">in</span> planets:
+    bpy.ops.mesh.<span class="c-fn">primitive_uv_sphere_add</span>(radius=size, location=(dist, <span class="c-num">0</span>, <span class="c-num">0</span>))
+    planet = bpy.context.object
+    planet.name = name
+
+    <span class="c-cm">  # Animate orbital path over full period</span>
+    <span class="c-kw">for</span> frame <span class="c-kw">in</span> <span class="c-fn">range</span>(<span class="c-num">0</span>, period + <span class="c-num">1</span>):
+        angle = (<span class="c-num">2</span> * math.pi * frame) / period
+        planet.location.x = dist * math.<span class="c-fn">cos</span>(angle)
+        planet.location.y = dist * math.<span class="c-fn">sin</span>(angle)
+        planet.location.z = <span class="c-num">0</span>
+        planet.<span class="c-fn">keyframe_insert</span>(data_path=<span class="c-str">"location"</span>, frame=frame)
+
+    <span class="c-cm">  # Self-rotation</span>
+    planet.rotation_euler.z = <span class="c-num">0</span>
+    planet.<span class="c-fn">keyframe_insert</span>(data_path=<span class="c-str">"rotation_euler"</span>, frame=<span class="c-num">0</span>)
+    planet.rotation_euler.z = math.pi * <span class="c-num">2</span>
+    planet.<span class="c-fn">keyframe_insert</span>(data_path=<span class="c-str">"rotation_euler"</span>, frame=period)
+
+<span class="c-cm"># ── Set timeline ──</span>
+bpy.context.scene.frame_start = <span class="c-num">0</span>
+bpy.context.scene.frame_end   = <span class="c-num">365</span>
+<span class="c-fn">print</span>(<span class="c-str">"Solar system created successfully!"</span>)</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ MEDIA GALLERY — add Blender renders/videos here ═══ -->
+<div class="section">
+  <div class="media-section-header">
+    <div>
+      <p class="section-label">Gallery</p>
+      <h2 class="section-title">Blender <em>Renders &amp; Output</em></h2>
+      <p class="section-desc">Add your Blender animation renders, viewport screenshots, Python output videos, and work-in-progress shots here.</p>
+    </div>
+    <span class="media-count">// Add media below</span>
+  </div>
+
+  <div class="media-grid">
+
+    <!-- ── SLOT 1: Final Blender Animation ── -->
+    <!-- To embed a YouTube video, replace this card's placeholder with:
+    <div class="media-card">
+      <div class="media-embed">
+        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="media-info">
+        <div class="media-title">Final Blender Animation</div>
+        <div class="media-desc">The rendered solar system animation output.</div>
+      </div>
+    </div>
+    -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">🪐</span>
+        <span class="media-placeholder-text">Final Blender Animation<br/>Add your rendered video or YouTube embed</span>
+        <span class="media-upload-badge">+ Add Video</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #4169e1, #6fa3f7);"></div>
+      <div class="media-info">
+        <div class="media-title">Final Solar System Animation</div>
+        <div class="media-desc">Your completed Blender render goes here. Replace with a YouTube embed or rendered video file.</div>
+      </div>
+    </div>
+
+    <!-- ── SLOT 2: Python Script in Blender ── -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">🐍</span>
+        <span class="media-placeholder-text">Python Script Running<br/>Blender scripting editor screenshot</span>
+        <span class="media-upload-badge">+ Add Image</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #c792ea, #82aaff);"></div>
+      <div class="media-info">
+        <div class="media-title">Python Script in Blender</div>
+        <div class="media-desc">Screenshot of the Blender scripting editor running the solar system Python script.</div>
+      </div>
+    </div>
+
+    <!-- ── SLOT 3: 3D Viewport / Work in Progress ── -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">🌐</span>
+        <span class="media-placeholder-text">3D Viewport Screenshot<br/>Blender scene setup &amp; layout</span>
+        <span class="media-upload-badge">+ Add Image</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #00c9ff, #4f94cd);"></div>
+      <div class="media-info">
+        <div class="media-title">3D Viewport — Scene Setup</div>
+        <div class="media-desc">A screenshot of the Blender 3D viewport showing the planet layout and orbital paths.</div>
+      </div>
+    </div>
+
+    <!-- ── SLOT 4: Cycles Render Output ── -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">💡</span>
+        <span class="media-placeholder-text">Cycles Render Output<br/>Final lighting &amp; material render</span>
+        <span class="media-upload-badge">+ Add Image</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #ffb347, #4169e1);"></div>
+      <div class="media-info">
+        <div class="media-title">Cycles Render — Lighting &amp; Materials</div>
+        <div class="media-desc">Final render showcasing the Cycles lighting, planet materials, and sun emission shader.</div>
+      </div>
+    </div>
+
+    <!-- ── ADD MORE SLOTS HERE as needed ── -->
+
+  </div>
+</div>
+
+<!-- ACADEMIC DISCLAIMER -->
+<div class="disclaimer-banner">
+  <span class="disclaimer-icon">⚠️</span>
+  <p><strong>Academic Disclaimer:</strong> This page and all its contents are created solely for <strong>academic purposes</strong> as part of a Multimedia and Authoring course requirement. All referenced tools, platforms, and techniques belong to their respective owners.</p>
+</div>
+
+<footer>
+  <div class="footer-brand">
+    ORBITAL MOTION
+    <small>Multimedia &amp; Authoring — Animation Project</small>
+  </div>
+  <div class="footer-planets">
+    <div class="fp" style="background:#888;width:8px;height:8px;"></div>
+    <div class="fp" style="background:#c4963a;width:10px;height:10px;"></div>
+    <div class="fp" style="background:#4f94cd;width:12px;height:12px;"></div>
+    <div class="fp" style="background:#cd5c5c;width:9px;height:9px;"></div>
+    <div class="fp" style="background:#c88b3a;width:18px;height:18px;"></div>
+    <div class="fp" style="background:#e4d191;width:14px;height:14px;"></div>
+  </div>
+  <div class="footer-copy">© 2026 Marquez, Iyanna Angela C.<br/>For Academic Purposes</div>
+</footer>
+
+<script src="stars.js"></script>
+</body>
+</html>

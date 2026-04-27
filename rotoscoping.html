@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rotoscoping — Orbital Motion</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+
+  /* ─── PAGE ACCENT ─── */
+  :root { --accent: #ffb347; --accent-glow: rgba(255,179,71,0.25); }
+
+  .page-hero {
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,179,71,0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(255,107,53,0.05) 0%, transparent 50%);
+  }
+
+  /* ─── TWO-COL INTRO ─── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* ─── VIDEO EMBED ─── */
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+  }
+  .video-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.3em;
+    color: var(--solar-gold); text-transform: uppercase;
+    margin-bottom: 0.8rem; opacity: 0.8;
+  }
+  .video-frame {
+    position: relative; width: 100%; aspect-ratio: 16/9;
+    border-radius: 4px; overflow: hidden;
+    border: 1px solid rgba(255,179,71,0.3);
+    box-shadow: 0 0 40px rgba(255,179,71,0.1), 0 0 80px rgba(0,0,0,0.6);
+    background: #000;
+  }
+  .video-frame iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+
+  /* ─── APP CARDS ─── */
+  .app-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .app-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 1.2rem 1.3rem;
+    transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+  }
+  .app-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .app-card.c-alight::before { background: linear-gradient(to right, #ff6b9d, #ff8c42); }
+  .app-card.c-ibis::before   { background: linear-gradient(to right, #6c63ff, #a855f7); }
+  .app-card.c-qt::before     { background: linear-gradient(to right, #00c9ff, #4f94cd); }
+  .app-card.c-canva::before  { background: linear-gradient(to right, #00c4cc, #7c4dff); }
+  .app-card:hover { border-color: rgba(255,179,71,0.3); transform: translateY(-3px); background: rgba(255,179,71,0.04); }
+  .app-card:hover::before { opacity: 1; }
+  .app-icon  { font-size: 1.5rem; margin-bottom: 0.45rem; display: block; }
+  .app-name  { font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; color: var(--solar-gold); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .app-role  { font-size: 0.82rem; color: rgba(232,244,253,0.5); line-height: 1.5; }
+
+  /* ─── WORKFLOW TIMELINE ─── */
+  .timeline {
+    display: flex; flex-direction: column; gap: 0;
+    margin-top: 1rem;
+  }
+  .t-step {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    padding-bottom: 1.6rem; position: relative;
+  }
+  .t-step::before {
+    content: ''; position: absolute;
+    left: 15px; top: 34px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(255,179,71,0.35), transparent);
+  }
+  .t-step:last-child::before { display: none; }
+  .t-num {
+    width: 32px; height: 32px; flex-shrink: 0;
+    border: 1px solid var(--solar-gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace; font-size: 0.58rem; font-weight: 700;
+    color: var(--solar-gold); background: rgba(255,179,71,0.07);
+  }
+  .t-body { padding-top: 0.4rem; }
+  .t-label { font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; color: var(--starlight); letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+  .t-detail { font-size: 0.83rem; color: rgba(232,244,253,0.5); line-height: 1.55; }
+
+  /* ─── MEDIA SECTION ─── */
+  .media-section-header {
+    display: flex; align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .media-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.2em;
+    color: rgba(232,244,253,0.3); text-transform: uppercase;
+  }
+
+  /* ─── VIDEO DISCLAIMER ─── */
+  .vd-box {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: rgba(255,179,71,0.04);
+    border: 1px solid rgba(255,179,71,0.18);
+    border-left: 3px solid var(--solar-gold);
+    border-radius: 6px;
+    padding: 1.1rem 1.4rem;
+    margin-top: 1rem;
+  }
+  .vd-box .vd-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .vd-box .vd-label {
+    display: block; font-family: 'Orbitron', monospace;
+    font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--solar-gold); margin-bottom: 0.35rem;
+  }
+  .vd-box .vd-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.64rem; line-height: 1.85; letter-spacing: 0.04em;
+    color: rgba(232,244,253,0.46);
+  }
+  .vd-box .vd-text strong { color: rgba(255,179,71,0.85); }
+
+  @media (max-width: 900px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .app-cards  { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">ORBITAL<span>MOTION</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rotoscoping.html" class="active">Rotoscoping</a></li>
+    <li><a href="solar-system.html">Solar System</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <p class="page-eyebrow">✦ Page 01 — Animation Technique ✦</p>
+  <h1 class="page-title">Rotoscoping</h1>
+  <p class="page-sub">Frame by Frame · Trace · Animate · Polish</p>
+</div>
+
+<!-- ═══ INTRO + VIDEO ═══ -->
+<div class="section">
+  <div class="intro-grid">
+
+    <!-- LEFT: Video -->
+    <div>
+      <p class="section-label">Reference Video</p>
+      <div class="video-wrap">
+        <div class="video-label">▶ Source Footage</div>
+        <div style="position:relative;">
+          <span class="vcorner vc-tl"></span>
+          <span class="vcorner vc-tr"></span>
+          <span class="vcorner vc-bl"></span>
+          <span class="vcorner vc-br"></span>
+          <div class="video-frame">
+            <!-- ✏️ REPLACE VbytAZQogH0 with your YouTube video ID -->
+            <iframe
+              src="https://www.youtube.com/embed/VbytAZQogH0"
+              title="Rotoscoping Reference Video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+      <div class="vd-box">
+        <span class="vd-icon">⚖️</span>
+        <div>
+          <span class="vd-label">Disclaimer</span>
+          <p class="vd-text">The video used as a reference in this project is <strong>not my original work</strong>. It was sourced from YouTube and is used solely for <strong>educational purposes</strong> as part of a Multimedia and Authoring course requirement. All rights and credits belong to the <strong>original creator</strong>. No copyright infringement is intended.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Info -->
+    <div>
+      <p class="section-label">About</p>
+      <h2 class="section-title">The Art of <em>Rotoscoping</em></h2>
+      <p class="section-desc">Rotoscoping is the process of tracing over live-action footage, frame by frame, to produce realistic animation. I sourced a YouTube video and methodically traced each frame — layering hand-drawn lines over real movement to create a fluid, stylized animation.</p>
+      <p class="section-desc">This project reflects my passion for animation and my growing skills in multimedia production. Through this process, I explored how technology and creativity work together to produce engaging visual content.</p>
+
+      <!-- TOOLS -->
+      <p class="section-label" style="margin-top:1.5rem;">Tools Used</p>
+      <div class="app-cards">
+        <div class="app-card c-alight">
+          <span class="app-icon">🎬</span>
+          <div class="app-name">Alight Motion</div>
+          <div class="app-role">Frame-by-frame animation, keyframes, motion effects &amp; layer compositing</div>
+        </div>
+        <div class="app-card c-ibis">
+          <span class="app-icon">🎨</span>
+          <div class="app-name">IbisPaint X</div>
+          <div class="app-role">Hand-drawn tracing, detail linework &amp; stylized brushwork per frame</div>
+        </div>
+        <div class="app-card c-qt">
+          <span class="app-icon">🎞️</span>
+          <div class="app-name">QuickTime</div>
+          <div class="app-role">Source video playback, frame scrubbing &amp; reference export</div>
+        </div>
+        <div class="app-card c-canva">
+          <span class="app-icon">✏️</span>
+          <div class="app-name">Canva</div>
+          <div class="app-role">Title cards, transitions, layout polish &amp; final presentation design</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ WORKFLOW ═══ -->
+<div class="section">
+  <p class="section-label">Process</p>
+  <h2 class="section-title">Rotoscoping <em>Workflow</em></h2>
+  <p class="section-desc">A step-by-step breakdown of how the animation was built from raw footage to polished output.</p>
+
+  <div style="max-width: 680px;">
+    <div class="timeline">
+      <div class="t-step">
+        <div class="t-num">01</div>
+        <div class="t-body">
+          <div class="t-label">Source &amp; Reference</div>
+          <div class="t-detail">Selected a YouTube video and extracted it via QuickTime for frame-by-frame reference. The video was chosen for its clear, readable motion.</div>
+        </div>
+      </div>
+      <div class="t-step">
+        <div class="t-num">02</div>
+        <div class="t-body">
+          <div class="t-label">Frame Tracing in IbisPaint X</div>
+          <div class="t-detail">Imported each frame into IbisPaint X and traced character outlines with stylized linework, capturing natural movement and gesture.</div>
+        </div>
+      </div>
+      <div class="t-step">
+        <div class="t-num">03</div>
+        <div class="t-body">
+          <div class="t-label">Animation Assembly in Alight Motion</div>
+          <div class="t-detail">Compiled all traced frames in Alight Motion, adding keyframe timing, smooth transitions, and layer effects to bring the animation to life.</div>
+        </div>
+      </div>
+      <div class="t-step">
+        <div class="t-num">04</div>
+        <div class="t-body">
+          <div class="t-label">Polish &amp; Export with Canva</div>
+          <div class="t-detail">Finalized the presentation with Canva overlays, title cards, and design polish. Exported as a clean multimedia output ready for submission.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ MEDIA GALLERY — add your videos/images here ═══ -->
+<div class="section">
+  <div class="media-section-header">
+    <div>
+      <p class="section-label">Gallery</p>
+      <h2 class="section-title">My <em>Animation Output</em></h2>
+      <p class="section-desc">Upload your finished rotoscoping videos, process screenshots, and frames here.</p>
+    </div>
+    <span class="media-count">// Add media below</span>
+  </div>
+
+  <div class="media-grid">
+
+    <!-- ── SLOT 1: Final Animation Output ── -->
+    <!-- To add a YouTube video, replace the placeholder div with:
+    <div class="media-card">
+      <div class="media-embed">
+        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="media-info">
+        <div class="media-title">Final Rotoscoping Animation</div>
+        <div class="media-desc">The completed frame-by-frame animation output.</div>
+      </div>
+    </div>
+    -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">🎬</span>
+        <span class="media-placeholder-text">Final Animation Output<br/>Add your YouTube embed or video here</span>
+        <span class="media-upload-badge">+ Add Video</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #ff6b9d, #ffb347);"></div>
+      <div class="media-info">
+        <div class="media-title">Final Rotoscoping Animation</div>
+        <div class="media-desc">Your completed animation goes here. Replace the placeholder with a YouTube embed or image.</div>
+      </div>
+    </div>
+
+    <!-- ── SLOT 2: Process / Behind the Scenes ── -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">🎨</span>
+        <span class="media-placeholder-text">Process Screenshots<br/>IbisPaint X frame tracing</span>
+        <span class="media-upload-badge">+ Add Image</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #6c63ff, #a855f7);"></div>
+      <div class="media-info">
+        <div class="media-title">Frame Tracing — IbisPaint X</div>
+        <div class="media-desc">Screenshots or screen recordings of the tracing process in IbisPaint X.</div>
+      </div>
+    </div>
+
+    <!-- ── SLOT 3: Alight Motion Timeline ── -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">⏱️</span>
+        <span class="media-placeholder-text">Alight Motion Timeline<br/>Animation assembly &amp; keyframes</span>
+        <span class="media-upload-badge">+ Add Image</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #ff8c42, #ffb347);"></div>
+      <div class="media-info">
+        <div class="media-title">Animation Timeline — Alight Motion</div>
+        <div class="media-desc">Screenshots of your Alight Motion project showing keyframe layout and layer structure.</div>
+      </div>
+    </div>
+
+    <!-- ── SLOT 4: Canva / Final Presentation ── -->
+    <div class="media-card">
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">✏️</span>
+        <span class="media-placeholder-text">Canva Output<br/>Title cards &amp; presentation design</span>
+        <span class="media-upload-badge">+ Add Image</span>
+      </div>
+      <div class="media-card-top" style="background: linear-gradient(to right, #00c4cc, #7c4dff);"></div>
+      <div class="media-info">
+        <div class="media-title">Final Presentation — Canva</div>
+        <div class="media-desc">The polished final output with title cards and transitions created in Canva.</div>
+      </div>
+    </div>
+
+    <!-- ── ADD MORE SLOTS HERE as needed ── -->
+
+  </div>
+</div>
+
+<!-- ACADEMIC DISCLAIMER -->
+<div class="disclaimer-banner">
+  <span class="disclaimer-icon">⚠️</span>
+  <p><strong>Academic Disclaimer:</strong> This page and all its contents are created solely for <strong>academic purposes</strong> as part of a Multimedia and Authoring course requirement. All referenced tools, videos, and platforms belong to their respective owners.</p>
+</div>
+
+<footer>
+  <div class="footer-brand">
+    ORBITAL MOTION
+    <small>Multimedia &amp; Authoring — Animation Project</small>
+  </div>
+  <div class="footer-planets">
+    <div class="fp" style="background:#888;width:8px;height:8px;"></div>
+    <div class="fp" style="background:#c4963a;width:10px;height:10px;"></div>
+    <div class="fp" style="background:#4f94cd;width:12px;height:12px;"></div>
+    <div class="fp" style="background:#cd5c5c;width:9px;height:9px;"></div>
+    <div class="fp" style="background:#c88b3a;width:18px;height:18px;"></div>
+    <div class="fp" style="background:#e4d191;width:14px;height:14px;"></div>
+  </div>
+  <div class="footer-copy">© 2026 Marquez, Iyanna Angela C.<br/>For Academic Purposes</div>
+</footer>
+
+<script src="stars.js"></script>
+</body>
+</html>
