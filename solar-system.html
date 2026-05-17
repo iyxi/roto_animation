@@ -143,9 +143,8 @@
 
   /* ─── MEDIA GRID / CARDS (Square videos) ─── */
   .media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem; margin-top: 1rem;
+    display: block; /* now contains full-width alternating rows */
+    margin-top: 1rem;
   }
   .media-card {
     background: rgba(0,0,0,0.45);
@@ -154,13 +153,27 @@
   }
   .media-embed {
     width: 100%;
-    aspect-ratio: 1 / 1; /* force 1:1 square */
     background: #000; overflow: hidden; display: block;
   }
   .media-embed video {
-    width: 100%; height: 100%; object-fit: cover; display: block;
+    width: 100%; height: 100%; object-fit: contain; display: block; background:#000;
   }
   .media-info { padding: 0.8rem 1rem; }
+
+  /* Alternating two-column rows for gallery (like the uploaded layout) */
+  .media-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; align-items: center; margin-bottom: 3rem;
+  }
+  .media-row .media-embed { height: 320px; border-radius: 8px; overflow: hidden; }
+  .media-row .media-info { padding: 0; }
+  .media-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.6rem; }
+  .media-desc  { color: rgba(232,244,253,0.7); line-height:1.6; }
+
+  @media (max-width: 900px) {
+    .media-row { grid-template-columns: 1fr; }
+    .media-row .media-embed { height: 260px; }
+  }
 
   /* ─── BLENDER BADGE ─── */
   .blender-badge {
@@ -349,91 +362,80 @@ bpy.context.scene.frame_end   = <span class="c-num">365</span>
   </div>
 
   <div class="media-grid">
-  
-  <div class="media-card">
-  <div class="media-embed">
-    <video autoplay muted loop playsinline>
-      <source src="planets/mercury.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="media-info">
-    <div class="media-title">Mercury Blender Animation</div>
-    <div class="media-desc">The rendered Mercury animation output.</div>
-  </div>
-</div> 
 
-  <div class="media-card">
-  <div class="media-embed">
-    <video autoplay muted loop playsinline>
-      <source src="planets/venus.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="media-info">
-    <div class="media-title">Venus Blender Animation</div>
-    <div class="media-desc">The rendered Venus animation output.</div>
-  </div>
-</div>
+    <div class="media-row">
+      <div class="media-info">
+        <div class="media-title">Neptune</div>
+        <div class="media-desc">The rendered Neptune animation output.</div>
+      </div>
+      <div class="media-embed">
+        <video autoplay muted loop playsinline>
+          <source src="planets/neptune.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
 
+    <div class="media-row">
+      <div class="media-embed">
+        <video autoplay muted loop playsinline>
+          <source src="planets/pluto.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="media-info">
+        <div class="media-title">Pluto</div>
+        <div class="media-desc">The rendered Pluto animation output.</div>
+      </div>
+    </div>
 
-  <div class="media-card">
-  <div class="media-embed">
-    <video autoplay muted loop playsinline>
-      <source src="planets/earth.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="media-info">
-    <div class="media-title">Earth Blender Animation</div>
-    <div class="media-desc">The rendered Earth animation output.</div>
-  </div>
-</div>
+    <div class="media-row">
+      <div class="media-info">
+        <div class="media-title">Jupiter</div>
+        <div class="media-desc">The rendered Jupiter animation output.</div>
+      </div>
+      <div class="media-embed">
+        <video autoplay muted loop playsinline>
+          <source src="planets/jupiter.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
 
-  <div class="media-card">
-  <div class="media-embed">
-    <video autoplay muted loop playsinline>
-      <source src="planets/mars.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="media-info">
-    <div class="media-title">Mars Blender Animation</div>
-    <div class="media-desc">The rendered Mars animation output.</div>
-  </div>
-</div>
+    <div class="media-row">
+      <div class="media-embed">
+        <video autoplay muted loop playsinline>
+          <source src="planets/saturn.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="media-info">
+        <div class="media-title">Saturn</div>
+        <div class="media-desc">The rendered Saturn animation output.</div>
+      </div>
+    </div>
 
-  <div class="media-card">
-  <div class="media-embed">
-    <video autoplay muted loop playsinline>
-      <source src="planets/jupiter.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="media-info">
-    <div class="media-title">Jupiter Blender Animation</div>
-    <div class="media-desc">The rendered Jupiter animation output.</div>
-  </div>
-</div> 
+    <div class="media-row">
+      <div class="media-info">
+        <div class="media-title">Earth</div>
+        <div class="media-desc">The rendered Earth animation output.</div>
+      </div>
+      <div class="media-embed">
+        <video autoplay muted loop playsinline>
+          <source src="planets/earth.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
 
-  <div class="media-card">
-  <div class="media-embed">
-    <video autoplay muted loop playsinline>
-      <source src="planets/uranus.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="media-info">
-    <div class="media-title">Uranus Blender Animation</div>
-    <div class="media-desc">The rendered Uranus animation output.</div>
-  </div>
-</div> 
+    <div class="media-row">
+      <div class="media-embed">
+        <video autoplay muted loop playsinline>
+          <source src="planets/mars.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="media-info">
+        <div class="media-title">Mars</div>
+        <div class="media-desc">The rendered Mars animation output.</div>
+      </div>
+    </div>
 
-  <div class="media-card">
-  <div class="media-embed">
-    <video autoplay muted loop playsinline>
-      <source src="planets/neptune.mp4" type="video/mp4">
-    </video>
   </div>
-  <div class="media-info">
-    <div class="media-title">Neptune Blender Animation</div>
-    <div class="media-desc">The rendered Neptune animation output.</div>
-  </div>
-</div> 
 
     <!-- ── SLOT 1: Final Blender Animation ── -->
     <!--<div class="media-card">
