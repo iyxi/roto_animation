@@ -141,6 +141,27 @@
     color: rgba(232,244,253,0.3); text-transform: uppercase;
   }
 
+  /* ─── MEDIA GRID / CARDS (Square videos) ─── */
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem; margin-top: 1rem;
+  }
+  .media-card {
+    background: rgba(0,0,0,0.45);
+    border-radius: 8px; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .media-embed {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* force 1:1 square */
+    background: #000; overflow: hidden; display: block;
+  }
+  .media-embed video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .media-info { padding: 0.8rem 1rem; }
+
   /* ─── BLENDER BADGE ─── */
   .blender-badge {
     display: inline-flex; align-items: center; gap: 0.8rem;
