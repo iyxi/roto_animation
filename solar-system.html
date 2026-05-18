@@ -560,5 +560,46 @@ bpy.context.scene.frame_end   = <span class="c-num">365</span>
 </footer>
 
 <script src="stars.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const videos = Array.from(document.querySelectorAll('video'));
+
+    const forcePlay = (video) => {
+      video.muted = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.playsInline = true;
+      const attempt = video.play();
+      if (attempt && typeof attempt.catch === 'function') {
+        attempt.catch(() => {});
+      }
+    };
+
+    videos.forEach((video) => {
+      forcePlay(video);
+      video.addEventListener('canplay', () => forcePlay(video), { once: true });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          forcePlay(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    videos.forEach((video) => observer.observe(video));
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        videos.forEach(forcePlay);
+      }
+    });
+
+    window.addEventListener('pageshow', () => {
+      videos.forEach(forcePlay);
+    });
+  });
+</script>
 </body>
 </html>
