@@ -164,13 +164,10 @@
     background: linear-gradient(135deg, rgba(255,123,167,0.03), rgba(111,163,247,0.03));
     border: 1px solid rgba(255,255,255,0.04);
   }
-  .tool-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0.8rem 0 0 0; }
+  .tool-list { display: flex; flex-direction: column; gap: 0.85rem; list-style: none; padding: 0; margin: 0.8rem 0 0 0; }
   .tool-item { display: flex; gap: 1rem; align-items: center; padding: 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); }
-  .tool-logo { width: 54px; height: 54px; border-radius: 10px; display: grid; place-items: center; font-family: 'Orbitron', monospace; font-weight: 800; color: #fff; }
-  .tool-logo.blender { background: linear-gradient(135deg,#6fa3f7,#4f94cd); }
-  .tool-logo.python  { background: linear-gradient(135deg,#ffd86b,#ffb347); color:#050510; }
-  .tool-logo.ae      { background: linear-gradient(135deg,#7b61ff,#4f94cd); }
-  .tool-logo.capcut  { background: linear-gradient(135deg,#ff7ba7,#ff6b9d); }
+  .tool-logo { width: 54px; height: 54px; border-radius: 10px; overflow: hidden; display: inline-block; flex-shrink: 0; }
+  .tool-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .tool-meta .tool-name { font-family: 'Orbitron', monospace; font-weight:700; color: var(--starlight); }
   .tool-meta .tool-desc { font-family: 'Space Mono', monospace; font-size: 0.86rem; color: rgba(232,244,253,0.6); }
 
@@ -345,19 +342,19 @@
 
   <ul class="tool-list">
     <li class="tool-item">
-      <div class="tool-logo blender">BL</div>
+      <div class="tool-logo"><img src="images/blender.jpg" alt="Blender logo"></div>
       <div class="tool-meta"><div class="tool-name">Blender</div><div class="tool-desc">3D modeling, shading, and Cycles rendering.</div></div>
     </li>
     <li class="tool-item">
-      <div class="tool-logo python">Py</div>
+      <div class="tool-logo"><img src="images/python.jpg" alt="Python logo"></div>
       <div class="tool-meta"><div class="tool-name">Python (bpy)</div><div class="tool-desc">Automation & keyframe scripting inside Blender.</div></div>
     </li>
     <li class="tool-item">
-      <div class="tool-logo ae">Ae</div>
+      <div class="tool-logo"><img src="images/after-effects.jpg" alt="After Effects logo"></div>
       <div class="tool-meta"><div class="tool-name">Adobe After Effects</div><div class="tool-desc">Compositing, motion graphics and post-processing.</div></div>
     </li>
     <li class="tool-item">
-      <div class="tool-logo capcut">Cc</div>
+      <div class="tool-logo"><img src="images/capcut.jpg" alt="CapCut logo"></div>
       <div class="tool-meta"><div class="tool-name">Capcut</div><div class="tool-desc">Final assembly and quick edits for presentation.</div></div>
     </li>
   </ul>
