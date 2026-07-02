@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --accent: #ff7ba7; --accent-glow: rgba(255,123,167,0.2); }
+
+  .page-hero {
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,123,167,0.08) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(255,107,53,0.06) 0%, transparent 50%);
+  }
+
+  .about-shell {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .profile-card,
+  .focus-card,
+  .facts-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 1.8rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  }
+
+  .profile-card {
+    display: flex;
+    gap: 1.4rem;
+    align-items: center;
+  }
+
+  .profile-badge {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--pink);
+    background: linear-gradient(135deg, rgba(255,123,167,0.18), rgba(255,179,71,0.12));
+    border: 1px solid rgba(255,123,167,0.22);
+    flex-shrink: 0;
+  }
+
+  .about-list {
+    list-style: none;
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .about-list li {
+    display: flex;
+    gap: 0.7rem;
+    color: rgba(232,244,253,0.72);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .about-list li::before {
+    content: '✦';
+    color: var(--pink);
+    margin-top: 0.15rem;
+  }
+
+  .fact-grid {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .fact-pill {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    color: rgba(232,244,253,0.8);
+    font-size: 0.92rem;
+  }
+
+  .fact-pill strong {
+    color: var(--pink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .about-shell { grid-template-columns: 1fr; }
+    .profile-card { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">MULTI<span>MEDIA</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rotoscoping.html">Rotoscoping</a></li>
+    <li><a href="solar-system.html">Solar System</a></li>
+    <li><a href="about-me.html" class="active">About Me</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <p class="page-eyebrow">✦ About Me ✦</p>
+  <h1 class="page-title">Who I Am</h1>
+  <p class="page-sub">Student · Animator · Multimedia Explorer</p>
+</div>
+
+<div class="section">
+  <div class="about-shell">
+    <div class="profile-card">
+      <div class="profile-badge">IAM</div>
+      <div>
+        <p class="section-label">Introduction</p>
+        <h2 class="section-title">I’m a multimedia student who loves bringing ideas to life through motion, design, and storytelling.</h2>
+        <p class="section-desc">My work sits at the intersection of creativity and technology. I enjoy exploring animation techniques, building visual narratives, and turning simple concepts into polished projects that feel expressive and memorable.</p>
+      </div>
+    </div>
+
+    <div class="focus-card">
+      <p class="section-label">What I Focus On</p>
+      <ul class="about-list">
+        <li>Frame-by-frame animation and creative motion experiments.</li>
+        <li>Visual storytelling through layered design and polished presentation.</li>
+        <li>Learning new tools, techniques, and workflows in multimedia production.</li>
+        <li>Combining artistic expression with technical problem-solving.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 1rem;">
+  <div class="about-shell">
+    <div class="facts-card">
+      <p class="section-label">Quick Facts</p>
+      <div class="fact-grid">
+        <div class="fact-pill"><span>Current Focus</span><strong>Animation &amp; Multimedia</strong></div>
+        <div class="fact-pill"><span>Favorite Medium</span><strong>Motion Design</strong></div>
+        <div class="fact-pill"><span>Tools I Use</span><strong>Blender, Canva, Alight Motion</strong></div>
+      </div>
+    </div>
+
+    <div class="facts-card">
+      <p class="section-label">Why This Portfolio Matters</p>
+      <p class="section-desc">This page is part of my growing portfolio, where I document the skills I’m developing and the creative directions I’m exploring. Each project reflects my curiosity, my process, and my commitment to learning through practice.</p>
+      <p class="section-desc">I’m especially interested in how animation can transform an ordinary idea into something immersive, emotional, and visually striking.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">
+    ORBITAL MOTION
+    <small>Multimedia &amp; Authoring — Animation Project</small>
+  </div>
+  <div class="footer-planets">
+    <div class="fp" style="background:#888;width:8px;height:8px;"></div>
+    <div class="fp" style="background:#c4963a;width:10px;height:10px;"></div>
+    <div class="fp" style="background:#4f94cd;width:12px;height:12px;"></div>
+    <div class="fp" style="background:#cd5c5c;width:9px;height:9px;"></div>
+    <div class="fp" style="background:#c88b3a;width:18px;height:18px;"></div>
+    <div class="fp" style="background:#e4d191;width:14px;height:14px;"></div>
+  </div>
+  <div class="footer-copy">© 2026 Marquez, Iyanna Angela C.<br>For Academic Purposes</div>
+</footer>
+
+<script src="stars.js"></script>
+</body>
+</html>
