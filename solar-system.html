@@ -178,6 +178,12 @@
     width: 100%;
     background: #000; overflow: hidden; display: block;
   }
+  .media-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
   .media-embed video {
     width: 100%; height: 80%; object-fit: contain; display: block; background:#000;
   }
@@ -206,7 +212,7 @@
   .media-grid .media-row:nth-child(odd) .media-info { text-align: left; }
 
   .gallery-note {
-    margin: 0 0 1.2rem auto;
+    margin: 0 auto 1.2rem auto;
     max-width: 360px;
     padding: 1rem 1.1rem;
     border-radius: 12px;
@@ -216,6 +222,7 @@
     color: rgba(232,244,253,0.82);
     line-height: 1.6;
     font-size: 0.84rem;
+    text-align: center;
   }
   .gallery-note .tiny {
     font-family: 'Space Mono', monospace;
@@ -413,7 +420,7 @@
     <!-- ── SLOT 1: Final Blender Animation ── -->
     <div class="media-card">
       <div class="media-embed">
-        <iframe src="https://www.youtube.com/embed/5wFkV-mce9Q?" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/5wFkV-mce9Q?" allowfullscreen></iframe>
       </div>
       <div class="media-info">
         <div class="media-title">Final Blender Animation</div>
@@ -553,14 +560,14 @@
      <!-- ── SLOT 1: Final Blender Animation ── -->
     <div class="media-card">
       <div class="media-embed">
-        <iframe src="https://www.youtube.com/embed/XQ6xkJUUtdo?" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/XQ6xkJUUtdo?" allowfullscreen></iframe>
       </div>
       <div class="media-info">
         <div class="media-title">Final Blender Animation with Rockets and Meteor</div>
         <div class="media-desc">The rendered solar system animation output.</div>
       </div>
     </div>
-    
+
 </div>
 
 
