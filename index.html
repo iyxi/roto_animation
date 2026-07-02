@@ -158,6 +158,22 @@
   .tool-tag:hover { opacity: 1; color: var(--solar-gold); }
   .tool-sep { width: 4px; height: 4px; background: var(--solar-gold); border-radius: 50%; opacity: 0.35; flex-shrink: 0; }
 
+  /* ─── TOOLS TUTORIAL (Homepage) ─── */
+  .tools-tutorial {
+    margin: 2rem 4rem; padding: 1.6rem 2rem; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255,123,167,0.03), rgba(111,163,247,0.03));
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .tool-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0.8rem 0 0 0; }
+  .tool-item { display: flex; gap: 1rem; align-items: center; padding: 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); }
+  .tool-logo { width: 54px; height: 54px; border-radius: 10px; display: grid; place-items: center; font-family: 'Orbitron', monospace; font-weight: 800; color: #fff; }
+  .tool-logo.blender { background: linear-gradient(135deg,#6fa3f7,#4f94cd); }
+  .tool-logo.python  { background: linear-gradient(135deg,#ffd86b,#ffb347); color:#050510; }
+  .tool-logo.ae      { background: linear-gradient(135deg,#7b61ff,#4f94cd); }
+  .tool-logo.capcut  { background: linear-gradient(135deg,#ff7ba7,#ff6b9d); }
+  .tool-meta .tool-name { font-family: 'Orbitron', monospace; font-weight:700; color: var(--starlight); }
+  .tool-meta .tool-desc { font-family: 'Space Mono', monospace; font-size: 0.86rem; color: rgba(232,244,253,0.6); }
+
   /* PROJECT CARDS */
   .projects-section {
     position: relative; z-index: 5;
@@ -322,16 +338,29 @@
   </a>
 </section>
 
-<div class="tools-strip">
-  <span class="tool-tag">TOOLS USED IN THIS PROJECT</span>
-</div>
+<div class="tools-tutorial">
+  <p class="section-label">Tools</p>
+  <h2 class="section-title">Apps &amp; Tools Used</h2>
+  <p class="section-desc">This project used a small toolkit to build 3D assets, script animations, and compose the final video.</p>
 
-<!-- TOOLS STRIP -->
-<div class="tools-strip">
-  <span class="tool-tag">Blender</span><span class="tool-sep"></span>
-  <span class="tool-tag">Python Script</span><span class="tool-sep"></span>
-  <span class="tool-tag">Adobe After Effects</span><span class="tool-sep"></span>
-  <span class="tool-tag">Capcut</span>
+  <ul class="tool-list">
+    <li class="tool-item">
+      <div class="tool-logo blender">BL</div>
+      <div class="tool-meta"><div class="tool-name">Blender</div><div class="tool-desc">3D modeling, shading, and Cycles rendering.</div></div>
+    </li>
+    <li class="tool-item">
+      <div class="tool-logo python">Py</div>
+      <div class="tool-meta"><div class="tool-name">Python (bpy)</div><div class="tool-desc">Automation & keyframe scripting inside Blender.</div></div>
+    </li>
+    <li class="tool-item">
+      <div class="tool-logo ae">Ae</div>
+      <div class="tool-meta"><div class="tool-name">Adobe After Effects</div><div class="tool-desc">Compositing, motion graphics and post-processing.</div></div>
+    </li>
+    <li class="tool-item">
+      <div class="tool-logo capcut">Cc</div>
+      <div class="tool-meta"><div class="tool-name">Capcut</div><div class="tool-desc">Final assembly and quick edits for presentation.</div></div>
+    </li>
+  </ul>
 </div>
 
 <!-- ═══ PROJECT CARDS ═══ -->

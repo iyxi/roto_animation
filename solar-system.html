@@ -229,19 +229,20 @@
   .age-input-row {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    margin-top: 0.7rem;
+    gap: 1.1rem;
+    margin-top: 1rem;
     flex-wrap: wrap;
+    padding-right: 0.4rem;
   }
   .age-input {
-    width: 110px;
-    padding: 0.6rem 0.75rem;
+    width: 150px;
+    padding: 0.85rem 1rem;
     border-radius: 999px;
     border: 1px solid rgba(255,123,167,0.28);
     background: rgba(255,255,255,0.08);
     color: var(--starlight);
     font-family: 'Orbitron', monospace;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     outline: none;
   }
   .age-input:focus {
@@ -626,7 +627,7 @@
       ageSpans.forEach((span) => {
         const period = parseFloat(span.dataset.period);
         const planetAge = period > 0 ? safeAge / period : safeAge;
-        span.textContent = `YOUR AGE IN THIS PLANET: ${planetAge.toFixed(1)} years`;
+        span.textContent = `YOUR AGE IN THIS PLANET: ${planetAge.toFixed(2)} years`;
       });
     };
 
