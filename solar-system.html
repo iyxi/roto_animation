@@ -94,40 +94,63 @@
   .b-label { font-family: 'Orbitron', monospace; font-size: 0.68rem; font-weight: 700; color: #6fa3f7; letter-spacing: 0.1em; margin-bottom: 0.2rem; }
   .b-detail { font-size: 0.83rem; color: rgba(232,244,253,0.5); line-height: 1.5; }
 
-  /* ─── CODE BLOCK ─── */
-  .code-block {
-    background: rgba(0,0,0,0.65);
-    border: 1px solid rgba(65,105,225,0.22);
-    border-radius: 8px; overflow: hidden;
+  /* ─── PROJECT FILES CARD ─── */
+  .download-card {
     margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(111,163,247,0.14), rgba(255,123,167,0.09));
+    border: 1px solid rgba(111,163,247,0.24);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.4rem;
+    align-items: center;
   }
-  .code-header {
-    background: rgba(65,105,225,0.1);
-    border-bottom: 1px solid rgba(65,105,225,0.18);
-    padding: 0.55rem 1rem;
-    display: flex; align-items: center; gap: 0.5rem;
+  .download-icon {
+    width: 82px; height: 82px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 2rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
   }
-  .code-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .code-dot.r { background: #ff5f57; }
-  .code-dot.y { background: #ffbd2e; }
-  .code-dot.g { background: #28c840; }
-  .code-filename {
+  .drive-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    padding: 0.8rem 1.1rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--pink), var(--solar-gold));
+    color: #050510;
+    text-decoration: none;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .drive-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(255,123,167,0.2);
+  }
+  .download-tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  .download-tags span {
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.04);
     font-family: 'Space Mono', monospace;
-    font-size: 0.58rem; letter-spacing: 0.12em;
-    color: rgba(232,244,253,0.35); margin-left: auto;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(232,244,253,0.7);
   }
-  .code-body {
-    padding: 1.2rem 1.4rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem; line-height: 1.85;
-    color: rgba(232,244,253,0.75);
-    overflow-x: auto; white-space: pre;
-  }
-  .c-kw  { color: #c792ea; }
-  .c-fn  { color: #82aaff; }
-  .c-str { color: #c3e88d; }
-  .c-cm  { color: rgba(232,244,253,0.28); font-style: italic; }
-  .c-num { color: #f78c6c; }
 
   /* ─── MEDIA SECTION ─── */
   .media-section-header {
@@ -290,75 +313,25 @@
 
 <div class="divider"></div>
 
-<!-- ═══ PYTHON SCRIPT ═══ -->
+<!-- ═══ PROJECT FILES ═══ -->
 <div class="section">
-  <p class="section-label">Code</p>
-  <h2 class="section-title">The Python <em>Script</em></h2>
-  <p class="section-desc">This Blender Python script automates the creation and animation of all planets, handling their orbital paths, speeds, and keyframes programmatically.</p>
+  <p class="section-label">Files</p>
+  <h2 class="section-title">Blender + Script <em>Bundle</em></h2>
+  <p class="section-desc">Here is the Google Drive folder containing the Blender project file and the Python script used to create the animated solar system. It’s a simple way to explore the setup, motion logic, and planet design in one place.</p>
 
-  <div class="code-block">
-    <div class="code-header">
-      <div class="code-dot r"></div>
-      <div class="code-dot y"></div>
-      <div class="code-dot g"></div>
-      <span class="code-filename">solar_system.py — Blender bpy Script</span>
+  <div class="download-card">
+    <div class="download-icon">🪐</div>
+    <div>
+      <p class="section-label" style="margin-bottom:0.6rem;">Project Access</p>
+      <h3 class="section-title" style="font-size:1.3rem; margin-bottom:0.6rem;">Cute Space Files Ready to Explore</h3>
+      <p class="section-desc" style="margin-bottom:0;">Open the folder to view the Blender project, the scripting file, and other supporting materials for this animation.</p>
+      <a class="drive-link" href="https://drive.google.com/drive/u/2/folders/1XVKPk8fYsRdt4rvS7sRNcIJpgwqguyxR" target="_blank" rel="noopener noreferrer">☁️ Open Google Drive Folder</a>
+      <div class="download-tags">
+        <span>✨ Blender File</span>
+        <span>🐍 Python Script</span>
+        <span>🌌 Space Setup</span>
+      </div>
     </div>
-    <div class="code-body"><span class="c-cm"># ─────────────────────────────────────────────────
-# Solar System Animation — Blender Python Script
-# Multimedia &amp; Authoring Project | 2026
-# ─────────────────────────────────────────────────</span>
-
-<span class="c-kw">import</span> bpy
-<span class="c-kw">import</span> math
-
-<span class="c-cm"># Clear existing scene objects</span>
-bpy.ops.object.<span class="c-fn">select_all</span>(action=<span class="c-str">'SELECT'</span>)
-bpy.ops.object.<span class="c-fn">delete</span>()
-
-<span class="c-cm"># ── Planet data: (name, radius, orbit_distance, orbit_period_frames) ──</span>
-planets = [
-    (<span class="c-str">"Mercury"</span>, <span class="c-num">0.38</span>, <span class="c-num">2.5</span>,  <span class="c-num">88</span>),
-    (<span class="c-str">"Venus"</span>,   <span class="c-num">0.95</span>, <span class="c-num">4.5</span>,  <span class="c-num">225</span>),
-    (<span class="c-str">"Earth"</span>,   <span class="c-num">1.00</span>, <span class="c-num">6.5</span>,  <span class="c-num">365</span>),
-    (<span class="c-str">"Mars"</span>,    <span class="c-num">0.53</span>, <span class="c-num">8.5</span>,  <span class="c-num">687</span>),
-    (<span class="c-str">"Jupiter"</span>, <span class="c-num">3.00</span>, <span class="c-num">13.0</span>, <span class="c-num">1200</span>),
-    (<span class="c-str">"Saturn"</span>,  <span class="c-num">2.50</span>, <span class="c-num">18.0</span>, <span class="c-num">2940</span>),
-]
-
-<span class="c-cm"># ── Create the Sun ──</span>
-bpy.ops.mesh.<span class="c-fn">primitive_uv_sphere_add</span>(radius=<span class="c-num">2.0</span>, location=(<span class="c-num">0</span>, <span class="c-num">0</span>, <span class="c-num">0</span>))
-sun = bpy.context.object
-sun.name = <span class="c-str">"Sun"</span>
-sun_mat = bpy.data.materials.<span class="c-fn">new</span>(name=<span class="c-str">"SunMaterial"</span>)
-sun_mat.use_nodes = <span class="c-kw">True</span>
-sun_mat.node_tree.nodes[<span class="c-str">"Principled BSDF"</span>].inputs[<span class="c-str">"Emission"</span>].default_value = (<span class="c-num">1.0</span>, <span class="c-num">0.6</span>, <span class="c-num">0.1</span>, <span class="c-num">1</span>)
-sun_mat.node_tree.nodes[<span class="c-str">"Principled BSDF"</span>].inputs[<span class="c-str">"Emission Strength"</span>].default_value = <span class="c-num">5.0</span>
-sun.data.materials.<span class="c-fn">append</span>(sun_mat)
-
-<span class="c-cm"># ── Create and animate each planet ──</span>
-<span class="c-kw">for</span> name, size, dist, period <span class="c-kw">in</span> planets:
-    bpy.ops.mesh.<span class="c-fn">primitive_uv_sphere_add</span>(radius=size, location=(dist, <span class="c-num">0</span>, <span class="c-num">0</span>))
-    planet = bpy.context.object
-    planet.name = name
-
-    <span class="c-cm">  # Animate orbital path over full period</span>
-    <span class="c-kw">for</span> frame <span class="c-kw">in</span> <span class="c-fn">range</span>(<span class="c-num">0</span>, period + <span class="c-num">1</span>):
-        angle = (<span class="c-num">2</span> * math.pi * frame) / period
-        planet.location.x = dist * math.<span class="c-fn">cos</span>(angle)
-        planet.location.y = dist * math.<span class="c-fn">sin</span>(angle)
-        planet.location.z = <span class="c-num">0</span>
-        planet.<span class="c-fn">keyframe_insert</span>(data_path=<span class="c-str">"location"</span>, frame=frame)
-
-    <span class="c-cm">  # Self-rotation</span>
-    planet.rotation_euler.z = <span class="c-num">0</span>
-    planet.<span class="c-fn">keyframe_insert</span>(data_path=<span class="c-str">"rotation_euler"</span>, frame=<span class="c-num">0</span>)
-    planet.rotation_euler.z = math.pi * <span class="c-num">2</span>
-    planet.<span class="c-fn">keyframe_insert</span>(data_path=<span class="c-str">"rotation_euler"</span>, frame=period)
-
-<span class="c-cm"># ── Set timeline ──</span>
-bpy.context.scene.frame_start = <span class="c-num">0</span>
-bpy.context.scene.frame_end   = <span class="c-num">365</span>
-<span class="c-fn">print</span>(<span class="c-str">"Solar system created successfully!"</span>)</div>
   </div>
 </div>
 
