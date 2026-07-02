@@ -205,6 +205,68 @@
   .media-grid .media-row:nth-child(even) .media-embed { order: 1; }
   .media-grid .media-row:nth-child(odd) .media-info { text-align: left; }
 
+  .gallery-note {
+    margin: 0 0 1.2rem auto;
+    max-width: 360px;
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255,123,167,0.14), rgba(111,163,247,0.09));
+    border: 1px solid rgba(255,123,167,0.24);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    color: rgba(232,244,253,0.82);
+    line-height: 1.6;
+    font-size: 0.84rem;
+  }
+  .gallery-note .tiny {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(232,244,253,0.5);
+    margin-bottom: 0.35rem;
+  }
+  .gallery-note strong { color: var(--pink); }
+  .age-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+    flex-wrap: wrap;
+  }
+  .age-input {
+    width: 110px;
+    padding: 0.6rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,123,167,0.28);
+    background: rgba(255,255,255,0.08);
+    color: var(--starlight);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    outline: none;
+  }
+  .age-input:focus {
+    border-color: rgba(255,123,167,0.6);
+    box-shadow: 0 0 0 2px rgba(255,123,167,0.16);
+  }
+  .age-input-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(232,244,253,0.65);
+  }
+  .planet-age {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pink);
+    text-shadow: 0 0 10px rgba(255,123,167,0.55), 0 0 20px rgba(255,123,167,0.25);
+  }
+
   @media (max-width: 900px) {
     .media-row { grid-template-columns: 1fr; }
     .media-row .media-embed { height: 260px; }
@@ -358,12 +420,22 @@
       </div>
     </div>
     
-  <div class="media-grid">
 
+  <div class="gallery-note">
+    <div class="tiny">✨ Know your age in different planets!</div>
+    <strong>Enter your age</strong>
+    <div class="age-input-row">
+      <input id="earth-age" class="age-input" type="number" min="1" step="1" value="20" placeholder="e.g. 20">
+      <span class="age-input-label">years old</span>
+    </div>
+  </div>
+
+  <div class="media-grid">
     <div class="media-row">
       <div class="media-info">
         <div class="media-title">Mercury</div>
         <div class="media-desc">Mercury is the smallest and closest planet to the Sun, featuring a heavily cratered, moon-like surface scarred by billions of years of cosmic impacts. Because it lacks a substantial atmosphere to trap heat, the planet experiences the most extreme temperature swings in the solar system, plummeting to 180°c at night and soaring to 430°c during the day. Despite its proximity to the Sun, radar data suggests that deep, permanently shadowed craters at its poles actually harbor patches of water ice. Structurally, it is surprisingly dense, packing a massive iron core that takes up roughly $85\%$ of the planet's radius and generates a global magnetic field.</div>
+        <span class="planet-age" data-period="0.2408">YOUR AGE IN THIS PLANET: --</span>
       </div>
       <div class="media-embed">
         <video autoplay muted loop playsinline>
@@ -381,6 +453,7 @@
       <div class="media-info">
         <div class="media-title">Venus</div>
         <div class="media-desc">Venus is a suffocating, runaway greenhouse world choked by a thick, toxic atmosphere composed primarily of carbon dioxide with swirling clouds of sulfuric acid. As Earth's structural "twin" in size and mass, it diverged drastically into the hottest planet in our solar system, maintaining a crushing surface temperature of around 465°c that is hot enough to melt lead. Its surface is a volcanic wasteland of vast plains, deformed mountains, and thousands of massive volcanoes, all obscured from direct view by its dense atmospheric shroud. Curiously, Venus rotates backwards on its axis compared to most other planets, meaning the Sun rises in the west and sets in the east.</div>
+        <span class="planet-age" data-period="0.6152">YOUR AGE IN THIS PLANET: --</span>
       </div>
     </div>
 
@@ -388,6 +461,7 @@
       <div class="media-info">
         <div class="media-title">Earth</div>
         <div class="media-desc">Earth, our home planet, is the only known oasis in the universe capable of sustaining life, defined by its vast liquid water oceans that cover over 70% of its surface. It features a dynamic, breathable atmosphere rich in nitrogen and oxygen, which protects the surface from harmful solar radiation while maintaining a stable, hospitable climate. Driven by an active internal engine, Earth's crust is divided into constantly moving tectonic plates that create mountains, fuel volcanoes, and reshape continents over millions of years. This geologic activity, paired with a powerful protective magnetosphere generated by its molten iron core, creates a perfectly balanced system where diverse ecosystems can thrive.</div>
+        <span class="planet-age" data-period="1.0000">YOUR AGE IN THIS PLANET: --</span>
       </div>
       <div class="media-embed">
         <video autoplay muted loop playsinline>
@@ -405,6 +479,7 @@
       <div class="media-info">
         <div class="media-title">Mars</div>
         <div class="media-desc">Mars, the Red Planet, is a cold, desert world covered in iron oxide dust that gives its barren landscape its iconic, rusty hue. Though it is currently a frozen wasteland with a thin, unbreathable carbon dioxide atmosphere, extensive geological evidence—including dried river valleys, ancient lakebeds, and minerals that only form in water—proves that liquid water once flowed across its surface billions of years ago. Today, its water is locked away as ice in the polar caps and just beneath the martian soil. Mars is also home to staggering planetary landmarks, hosting Olympus Mons, the largest volcano in the solar system, and Valles Marineris, a colossal canyon system that dwarfs Earth's Grand Canyon.</div>
+        <span class="planet-age" data-period="1.8808">YOUR AGE IN THIS PLANET: --</span>
       </div>
     </div>
 
@@ -412,6 +487,7 @@
       <div class="media-info">
         <div class="media-title">Jupiter</div>
         <div class="media-desc">Jupiter is a king-sized gas giant that holds more than twice the mass of all the other planets in our solar system combined. Lacking a solid surface, it is a turbulent ball of mostly hydrogen and helium gas, featuring an outer atmosphere whipped by fierce winds into colorful, dark belts and light zones. The planet’s most famous feature is the Great Red Spot, a monstrous, counter-clockwise spinning storm wider than Earth that has raged for centuries. Jupiter acts like a mini-solar system of its own, boasting a powerful magnetic field and a massive family of dozens of moons, including the volcanic Io and the icy Europa, which hides a subsurface liquid ocean.</div>
+        <span class="planet-age" data-period="11.8626">YOUR AGE IN THIS PLANET: --</span>
       </div>
       <div class="media-embed">
         <video autoplay muted loop playsinline>
@@ -429,6 +505,7 @@
       <div class="media-info">
         <div class="media-title">Saturn</div>
         <div class="media-desc">Saturn is a gas giant known for its spectacular ring system, composed of countless small ice and rock particles orbiting the planet. Like Jupiter, it lacks a solid surface and is primarily made of hydrogen and helium. Its atmosphere features bands of clouds and storms, including the famous hexagonal storm at its north pole. Saturn is also home to numerous moons, with Titan being the largest and having a thick atmosphere similar to Earth's.</div>
+        <span class="planet-age" data-period="29.4475">YOUR AGE IN THIS PLANET: --</span>
       </div>
     </div>
 
@@ -441,6 +518,7 @@
       <div class="media-info">
         <div class="media-title">Uranus</div>
         <div class="media-desc">Uranus is a pale blue-green ice giant that gets its distinct color from methane gas in its frigid, hydrogen-and-helium atmosphere. Unlike any other planet in the solar system, Uranus is tilted so far on its side that it literally rotates horizontally, rolling around the Sun like a bowling ball with its poles pointing almost directly at it. This extreme tilt gives the planet radical, decades-long seasons, where one pole faces total darkness for 42 Earth years at a time. Beneath its chilly atmosphere lies a slushy, hot mantle of water, ammonia, and methane ices, surrounding a small, rocky core.</div>
+        <span class="planet-age" data-period="84.0168">YOUR AGE IN THIS PLANET: --</span>
       </div>
     </div>
 
@@ -453,12 +531,14 @@
       <div class="media-info">
         <div class="media-title">Neptune</div>
         <div class="media-desc">Neptune is a deep-blue ice giant, making it the most distant and isolated planet orbiting our Sun. It possesses a dynamic, storm-swept atmosphere driven by the fastest winds recorded in the solar system, reaching supersonic speeds of up to 2,100km/h. Because it is so far from the Sun, Neptune is incredibly cold, yet it generates a strange amount of internal heat that powers massive, dark vortex storms like the Great Dark Spot. Like its neighbor Uranus, its structure consists of a thick fluid mix of water, ammonia, and methane ices over a solid core, and it is orbited by a collection of moons, including Triton, a frozen world that orbits the planet backward.</div>
+        <span class="planet-age" data-period="164.7913">YOUR AGE IN THIS PLANET: --</span>
       </div>
     </div>
     <div class="media-row">
       <div class="media-info">
         <div class="media-title">Pluto</div>
         <div class="media-desc">Pluto has a moderately eccentric and inclined orbit, ranging from 30 to 49 astronomical units (4.5 to 7.3 billion kilometres; 2.8 to 4.6 billion miles) from the Sun. Light from the Sun takes 5.5 hours to reach Pluto at its orbital distance of 39.5 AU (5.91 billion km; 3.67 billion mi). Pluto's eccentric orbit periodically brings it closer to the Sun than Neptune, but a stable orbital resonance prevents them from colliding.</div>
+        <span class="planet-age" data-period="247.9206">YOUR AGE IN THIS PLANET: --</span>
       </div>
       <div class="media-embed">
         <video autoplay muted loop playsinline>
@@ -535,6 +615,23 @@
     window.addEventListener('pageshow', () => {
       videos.forEach(forcePlay);
     });
+
+    const ageInput = document.getElementById('earth-age');
+    const ageSpans = Array.from(document.querySelectorAll('.planet-age'));
+
+    const updateAges = () => {
+      const earthAge = parseFloat(ageInput.value);
+      const safeAge = Number.isFinite(earthAge) && earthAge > 0 ? earthAge : 0;
+
+      ageSpans.forEach((span) => {
+        const period = parseFloat(span.dataset.period);
+        const planetAge = period > 0 ? safeAge / period : safeAge;
+        span.textContent = `YOUR AGE IN THIS PLANET: ${planetAge.toFixed(1)} years`;
+      });
+    };
+
+    ageInput.addEventListener('input', updateAges);
+    updateAges();
   });
 </script>
 </body>
